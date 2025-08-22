@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.15.4",
+    "@types/react": "^19.1.10",
     "parcel": "^2.15.4"
   }
 }
