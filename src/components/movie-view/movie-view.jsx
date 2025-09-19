@@ -1,10 +1,11 @@
-import "./movie-view.scss";
+import PropTypes from "prop-types";
+import { Button } from "react-bootstrap";
 
 export const MovieView = ({ movie, onBackClick }) => {
   return (
     <div>
       <div>
-        <img src={movie.image} />
+        <img className="w-100" src={movie.image} />
       </div>
       <div>
         <span>Title: </span>
@@ -22,13 +23,22 @@ export const MovieView = ({ movie, onBackClick }) => {
         <span>Director: </span>
         <span>{movie.director.Name}</span>
       </div>
-      <button 
+      <Button
         onClick={onBackClick}
         className="back-button"
         style={{ cursor: "pointer" }}
       >
         Back
-      </button>
+      </Button>
     </div>
   );
-};  
+};
+
+MovieView.propTypes = {
+  movie: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    director: PropTypes.string.isRequired,
+  }).isRequired,
+  onBackClick: PropTypes.func.isRequired,
+};

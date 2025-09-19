@@ -1,6 +1,5 @@
 import { useState } from "react";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import { Button, Card, Form } from "react-bootstrap";
 
 export const SignupView = () => {
   const [username, setUsername] = useState("");
@@ -15,28 +14,28 @@ export const SignupView = () => {
       Username: username,
       Password: password,
       Email: email,
-      Birthday: birthday
+      Birthday: birthday,
     };
 
     fetch("https://movie-api-jbxn.onrender.com/users", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-type": "application/json",
+      },
     }).then((response) => {
       if (response.ok) {
         alert("Signup successful");
         window.location.reload();
       } else {
-        alert("Signup failed");
+        alert("Signup Failed");
       }
     });
   };
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Form.Group controlId="formUsername">
+      <Form.Group controlid="formUsername">
         <Form.Label>Username:</Form.Label>
         <Form.Control
           type="text"
@@ -46,8 +45,7 @@ export const SignupView = () => {
           minLength="3"
         />
       </Form.Group>
-  
-      <Form.Group controlId="formPassword">
+      <Form.Group controlid="formPassword">
         <Form.Label>Password:</Form.Label>
         <Form.Control
           type="password"
@@ -56,9 +54,8 @@ export const SignupView = () => {
           required
         />
       </Form.Group>
-  
-      <Form.Group controlId="formEmail">
-        <Form.Label>Password:</Form.Label>
+      <Form.Group controlid="formEmail">
+        <Form.Label>Email:</Form.Label>
         <Form.Control
           type="email"
           value={email}
@@ -66,9 +63,8 @@ export const SignupView = () => {
           required
         />
       </Form.Group>
-  
-      <Form.Group controlId="formBirthday">
-        <Form.Label>Password:</Form.Label>
+      <Form.Group controlid="formBirthday">
+        <Form.Label>Birthday:</Form.Label>
         <Form.Control
           type="date"
           value={birthday}
@@ -76,10 +72,7 @@ export const SignupView = () => {
           required
         />
       </Form.Group>
-  
-      <Button variant="primary" type="submit">
-        Submit
-      </Button>
+      <Button type="submit">Submit</Button>
     </Form>
   );
 };

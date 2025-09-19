@@ -1,6 +1,5 @@
 import { useState } from "react";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import { Button, Card, Form } from "react-bootstrap";
 
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState("");
@@ -20,12 +19,15 @@ export const LoginView = ({ onLoggedIn }) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-      })
+    })
       .then((response) => response.json())
       .then((data) => {
         console.log("Login response: ", data);
         if (data.user) {
-          localStorage.setItem("user", JSON.stringify(data.user, console.log("saved user")));
+          localStorage.setItem(
+            "user",
+            JSON.stringify(data.user, console.log("saved user"))
+          );
           localStorage.setItem("token", data.token, console.log("saved token"));
           onLoggedIn(data.user, data.token);
         } else {
@@ -33,13 +35,13 @@ export const LoginView = ({ onLoggedIn }) => {
         }
       })
       .catch((e) => {
-        alert("Something went wrong");
+        alert("Something went wrong ");
       });
-  }
+  };
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Form.Group controlId="formUsername">
+      <Form.Group controlid="formUsername">
         <Form.Label>Username:</Form.Label>
         <Form.Control
           type="text"
@@ -49,8 +51,7 @@ export const LoginView = ({ onLoggedIn }) => {
           minLength="3"
         />
       </Form.Group>
-  
-      <Form.Group controlId="formPassword">
+      <Form.Group controlid="formPassword">
         <Form.Label>Password:</Form.Label>
         <Form.Control
           type="password"
@@ -65,4 +66,3 @@ export const LoginView = ({ onLoggedIn }) => {
     </Form>
   );
 };
-
