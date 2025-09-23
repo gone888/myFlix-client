@@ -1,7 +1,61 @@
-import PropTypes from "prop-types";
+import { useParams } from "react-router";
+import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import PropTypes from "prop-types";
 
-export const MovieView = ({ movie, onBackClick }) => {
+export const MovieView = ({ movies, user, token }) => {
+  const { movieId } = useParams();
+
+  const movie = movies.find((m) => m.id === movieId);
+
+  let favMovs = user.FavoriteMovies;
+  let movToBeAdded = movie.id;
+
+  function checkIfMovieAlreadyExists(movToBeAdded, favMovs) {
+    for (let i = 0; i < favMovs.length; i++) {
+      if (favMovs[i] === movToBeAdded) {
+        console.log("true");
+        return true;
+      }
+    }
+    console.log("false");
+    return false;
+  }
+
+  const addToFavorites = (event) => {
+    event.preventDefault();
+
+    if (checkIfMovieAlreadyExists(movToBeAdded, favMovs) === true) {
+      alert("Movie is already in favorites");
+    } else {
+      fetch(
+        `https://movie-api-jbxn.onrender.com/users/${user.Username}/movies/${movie.id}`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (data) {
+            localStorage.setItem(
+              "user",
+              JSON.stringify(data),
+              alert("Movie was added to your favorites")
+            );
+            window.location.reload();
+          } else {
+            alert("There was an error adding the movie from your favorites");
+          }
+        })
+        .catch((e) => {
+          alert("Something went wrong");
+        });
+    }
+  };
+
   return (
     <div>
       <div>
@@ -23,13 +77,10 @@ export const MovieView = ({ movie, onBackClick }) => {
         <span>Director: </span>
         <span>{movie.director.Name}</span>
       </div>
-      <Button
-        onClick={onBackClick}
-        className="back-button"
-        style={{ cursor: "pointer" }}
-      >
-        Back
-      </Button>
+      <Link to={`/`}>
+        <Button className="me-3 back-button">Back</Button>
+      </Link>
+      <Button onClick={addToFavorites}>Add to favorites</Button>
     </div>
   );
 };
@@ -38,7 +89,5 @@ MovieView.propTypes = {
   movie: PropTypes.shape({
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
-    director: PropTypes.string.isRequired,
   }).isRequired,
-  onBackClick: PropTypes.func.isRequired,
 };
