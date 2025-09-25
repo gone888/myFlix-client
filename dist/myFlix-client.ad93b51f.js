@@ -34867,4 +34867,4 @@ $RefreshReg$(_c, "UpdateUser");
 }
 },{"react/jsx-dev-runtime":"dVPUn","react-bootstrap":"ctEhb","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi"}],"lJZlQ":[function() {},{}]},["hiyDA","gYcKb"], "gYcKb", "parcelRequireaec4", {}, null, null, "http://localhost:1234")
 
-//# sourceMappingURL=myFlix-client.ad93b51f.js.map
+//# sourceMappingURL=myFlix-Client.ad93b51f.js.map
