@@ -56,6 +56,34 @@ export const MovieView = ({ movies, user, token }) => {
     }
   };
 
+  const removeFromFavorites = (id) => {
+    fetch(
+      `https://movie-api-jbxn.onrender.com/users/${user.Username}/movies/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        if (data) {
+          localStorage.setItem(
+            "user",
+            JSON.stringify(data),
+            alert("Movie was removed from favorites")
+          );
+          window.location.reload();
+        } else {
+          alert("There was an error removing the movie from your favorites");
+        }
+      })
+      .catch((e) => {
+        alert("Something went wrong");
+      });
+  };
+
   return (
     <div>
       <div>
@@ -80,7 +108,12 @@ export const MovieView = ({ movies, user, token }) => {
       <Link to={`/`}>
         <Button className="me-3 back-button">Back</Button>
       </Link>
-      <Button onClick={addToFavorites}>Add to favorites</Button>
+      <Button className="me-3" onClick={addToFavorites}>
+        Add to favorites
+      </Button>
+      <Button className="me-3" onClick={() => removeFromFavorites(movie.id)}>
+        Remove from favorites
+      </Button>
     </div>
   );
 };
