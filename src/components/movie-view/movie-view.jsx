@@ -57,31 +57,35 @@ export const MovieView = ({ movies, user, token }) => {
   };
 
   const removeFromFavorites = (id) => {
-    fetch(
-      `https://movie-api-jbxn.onrender.com/users/${user.Username}/movies/${id}`,
-      {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        if (data) {
-          localStorage.setItem(
-            "user",
-            JSON.stringify(data),
-            alert("Movie was removed from favorites")
-          );
-          window.location.reload();
-        } else {
-          alert("There was an error removing the movie from your favorites");
+    if (checkIfMovieAlreadyExists(movToBeAdded, favMovs) === false) {
+      alert("Movie is not in favorites");
+    } else {
+      fetch(
+        `https://movie-api-jbxn.onrender.com/users/${user.Username}/movies/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      })
-      .catch((e) => {
-        alert("Something went wrong");
-      });
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (data) {
+            localStorage.setItem(
+              "user",
+              JSON.stringify(data),
+              alert("Movie was removed from favorites")
+            );
+            window.location.reload();
+          } else {
+            alert("There was an error removing the movie from your favorites");
+          }
+        })
+        .catch((e) => {
+          alert("Something went wrong");
+        });
+    }
   };
 
   return (
