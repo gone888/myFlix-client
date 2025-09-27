@@ -1,5 +1,4 @@
-import { useParams } from "react-router";
-import { Link } from "react-router-dom";
+import { useParams, Link } from "react-router";
 import { Button } from "react-bootstrap";
 import PropTypes from "prop-types";
 
