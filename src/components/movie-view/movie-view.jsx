@@ -1,5 +1,6 @@
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
+<<<<<<< HEAD
 import PropTypes from "prop-types";
 
 export const MovieView = ({ movies }) => {
@@ -7,6 +8,96 @@ export const MovieView = ({ movies }) => {
 
   const movie = movies.find((m) => m.id === movieId);
 
+=======
+import { Button } from "react-bootstrap";
+import PropTypes from "prop-types";
+
+export const MovieView = ({ movies, user, token }) => {
+  const { movieId } = useParams();
+
+  const movie = movies.find((m) => m.id === movieId);
+
+  let favMovs = user.FavoriteMovies;
+  let movToBeAdded = movie.id;
+
+  function checkIfMovieAlreadyExists(movToBeAdded, favMovs) {
+    for (let i = 0; i < favMovs.length; i++) {
+      if (favMovs[i] === movToBeAdded) {
+        console.log("true");
+        return true;
+      }
+    }
+    console.log("false");
+    return false;
+  }
+
+  const addToFavorites = (event) => {
+    event.preventDefault();
+
+    if (checkIfMovieAlreadyExists(movToBeAdded, favMovs) === true) {
+      alert("Movie is already in favorites");
+    } else {
+      fetch(
+        `https://movie-api-jbxn.onrender.com/users/${user.Username}/movies/${movie.id}`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (data) {
+            localStorage.setItem(
+              "user",
+              JSON.stringify(data),
+              alert("Movie was added to your favorites")
+            );
+            window.location.reload();
+          } else {
+            alert("There was an error adding the movie from your favorites");
+          }
+        })
+        .catch((e) => {
+          alert("Something went wrong");
+        });
+    }
+  };
+
+  const removeFromFavorites = (id) => {
+    if (checkIfMovieAlreadyExists(movToBeAdded, favMovs) === false) {
+      alert("Movie is not in favorites");
+    } else {
+      fetch(
+        `https://movie-api-jbxn.onrender.com/users/${user.Username}/movies/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (data) {
+            localStorage.setItem(
+              "user",
+              JSON.stringify(data),
+              alert("Movie was removed from favorites")
+            );
+            window.location.reload();
+          } else {
+            alert("There was an error removing the movie from your favorites");
+          }
+        })
+        .catch((e) => {
+          alert("Something went wrong");
+        });
+    }
+  };
+
+>>>>>>> 8442577241a93592fdb20c5365302c4d9eadf865
   return (
     <div>
       <div>
@@ -29,8 +120,19 @@ export const MovieView = ({ movies }) => {
         <span>{movie.director.Name}</span>
       </div>
       <Link to={`/`}>
+<<<<<<< HEAD
         <button className="back-button">Back</button>
       </Link>
+=======
+        <Button className="me-3 back-button">Back</Button>
+      </Link>
+      <Button className="me-3" onClick={addToFavorites}>
+        Add to favorites
+      </Button>
+      <Button className="me-3" onClick={() => removeFromFavorites(movie.id)}>
+        Remove from favorites
+      </Button>
+>>>>>>> 8442577241a93592fdb20c5365302c4d9eadf865
     </div>
   );
 };
