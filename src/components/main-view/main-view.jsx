@@ -8,6 +8,8 @@ import { ProfileView } from "../profile-view/profile-view";
 import { Col, Row } from "react-bootstrap";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router";
 
+import { MoviesFilter } from "../movies-filter/movies-filter";
+
 export const MainView = () => {
   const [movies, setMovies] = useState([]);
   const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -15,6 +17,19 @@ export const MainView = () => {
   const [user, setUser] = useState(storedUser ? storedUser : null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
   const [isLoading, setIsLoading] = useState(true);
+  const [filteredMovies, setFilteredMovies] = useState([]);
+
+  const movieSearch = (query) => {
+    if (query === "") {
+      setFilteredMovies(movies);
+    } else {
+      const lowercasedMovie = query.toLowerCase();
+      const newFilteredMovies = movies.filter((movie) =>
+        movie.title.toLowerCase().includes(lowercasedMovie)
+      );
+      setFilteredMovies(newFilteredMovies);
+    }
+  };
 
   useEffect(() => {
     if (!token) {
@@ -40,6 +55,7 @@ export const MainView = () => {
         });
         setIsLoading(false);
         setMovies(moviesFromApi);
+        setFilteredMovies(moviesFromApi);
       });
   }, [token]);
 
@@ -136,8 +152,13 @@ export const MainView = () => {
                   <Col>The list is empty!</Col>
                 ) : (
                   <>
-                    {movies.map((movie) => (
-                      <Col className="mb-4" key={movie.id} md={3}>
+                    <Row>
+                      <Col className="mb-2">
+                        <MoviesFilter onSearch={movieSearch} />
+                      </Col>
+                    </Row>
+                    {filteredMovies.map((movie) => (
+                      <Col className="mb-2" key={movie.id} md={3}>
                         <MovieCard movie={movie} />
                       </Col>
                     ))}
