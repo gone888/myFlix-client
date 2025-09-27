@@ -1,14 +1,5 @@
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
-<<<<<<< HEAD
-import PropTypes from "prop-types";
-
-export const MovieView = ({ movies }) => {
-  const { movieId } = useParams();
-
-  const movie = movies.find((m) => m.id === movieId);
-
-=======
 import { Button } from "react-bootstrap";
 import PropTypes from "prop-types";
 
@@ -97,7 +88,6 @@ export const MovieView = ({ movies, user, token }) => {
     }
   };
 
->>>>>>> 8442577241a93592fdb20c5365302c4d9eadf865
   return (
     <div>
       <div>
@@ -120,10 +110,6 @@ export const MovieView = ({ movies, user, token }) => {
         <span>{movie.director.Name}</span>
       </div>
       <Link to={`/`}>
-<<<<<<< HEAD
-        <button className="back-button">Back</button>
-      </Link>
-=======
         <Button className="me-3 back-button">Back</Button>
       </Link>
       <Button className="me-3" onClick={addToFavorites}>
@@ -132,7 +118,6 @@ export const MovieView = ({ movies, user, token }) => {
       <Button className="me-3" onClick={() => removeFromFavorites(movie.id)}>
         Remove from favorites
       </Button>
->>>>>>> 8442577241a93592fdb20c5365302c4d9eadf865
     </div>
   );
 };

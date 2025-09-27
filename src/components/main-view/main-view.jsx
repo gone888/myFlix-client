@@ -4,12 +4,8 @@ import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
-<<<<<<< HEAD
-import { Col, Row, Button } from "react-bootstrap";
-=======
 import { ProfileView } from "../profile-view/profile-view";
 import { Col, Row } from "react-bootstrap";
->>>>>>> 8442577241a93592fdb20c5365302c4d9eadf865
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 export const MainView = () => {
@@ -49,9 +45,6 @@ export const MainView = () => {
 
   return (
     <BrowserRouter>
-<<<<<<< HEAD
-      <NavigationBar user={user} onLoggedOut={() => setUser(null)} />
-=======
       <NavigationBar
         user={user}
         onLoggedOut={() => {
@@ -59,7 +52,6 @@ export const MainView = () => {
           window.location.reload();
         }}
       />
->>>>>>> 8442577241a93592fdb20c5365302c4d9eadf865
       <Row className="justify-content-md-center">
         <Routes>
           <Route
@@ -77,21 +69,6 @@ export const MainView = () => {
             }
           />
           <Route
-<<<<<<< HEAD
-            path="login"
-            element={
-              <>
-                {user ? (
-                  <Navigate to="/" />
-                ) : (
-                  <Col md={5}>
-                    <LoginView
-                      onLoggedIn={(user, token) => {
-                        setUser(user);
-                        setToken(token);
-                      }}
-                    />
-=======
             path="/profile"
             element={
               <>
@@ -109,15 +86,12 @@ export const MainView = () => {
                         dataLoaded={!isLoading}
                       />
                     )}
->>>>>>> 8442577241a93592fdb20c5365302c4d9eadf865
                   </Col>
                 )}
               </>
             }
           />
           <Route
-<<<<<<< HEAD
-=======
             path="login"
             element={
               <>
@@ -137,7 +111,6 @@ export const MainView = () => {
             }
           />
           <Route
->>>>>>> 8442577241a93592fdb20c5365302c4d9eadf865
             path="movies/:movieId"
             element={
               <>
@@ -147,11 +120,7 @@ export const MainView = () => {
                   <Col>The list is empty!</Col>
                 ) : (
                   <Col>
-<<<<<<< HEAD
-                    <MovieView movies={movies} />
-=======
                     <MovieView movies={movies} user={user} token={token} />
->>>>>>> 8442577241a93592fdb20c5365302c4d9eadf865
                   </Col>
                 )}
               </>
