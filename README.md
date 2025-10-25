@@ -2,13 +2,24 @@
 
 This is the frontend side of my myFlix project which is an application for viewing details about movies.
 
-## List of features:
+- Link to hosted project: https://myflixbb.netlify.app/
 
-- Allow a user to signup
-- Allow a user to login & logout
-- Display a list of movies
-- Allow a user to add/remove a movie to/from their list of favorites
-- Allow a user to update their user information (Username, Password, Email, Birthday)
-- Allow a user to delete their account
+## Key Features
 
-Link to hosted project: https://myflixbb.netlify.app/
+- Return a list of ALL movies to the user
+- Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by its title to the user
+- Return data about a genre (description) by name/title (e.g., “Thriller”)
+- Return data about a director (bio, birth year, death year) by name
+- Allow new users to register
+- Allow users to update their user info (username, password, email, date of birth)
+- Allow users to add a movie to their list of favorites
+- Allow users to remove a movie from their list of favorites
+- Allow existing users to deregister
+
+## Technology used
+
+- React
+- JavaScript
+- Bootstrap
+- React Router
+- Parcel
